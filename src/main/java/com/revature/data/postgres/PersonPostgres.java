@@ -94,12 +94,10 @@ public class PersonPostgres implements PersonDAO {
 			Statement stmt = conn.createStatement();
 			ResultSet resultSet = stmt.executeQuery(sql);
 			
-			// while the result set has another row
 			while (resultSet.next()) {
-				// create the Pet object
+
 				Person person = new Person();
-				// pull the data from each row in the result set
-				// and put it into the java object so that we can use it here
+
 				person.setId(resultSet.getInt("id"));
 				person.setFullName(resultSet.getString("fullname"));
 				person.setUsername(resultSet.getString("username"));

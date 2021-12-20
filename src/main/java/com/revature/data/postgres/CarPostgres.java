@@ -19,9 +19,7 @@ public class CarPostgres implements CarDAO {
 	public int create(Car dataToAdd) {
 		int generatedId = 0;
 		
-		// try-with-resources auto-closes resources
 		try (Connection conn = connUtil.getConnection()) {
-			// when you run DML statements, you want to manage the TCL
 			conn.setAutoCommit(false);
 			
 			String sql = "insert into car (id,make,model,year,status) "
@@ -55,7 +53,6 @@ public class CarPostgres implements CarDAO {
 		return generatedId;
 	}
 
-	// made by vanquish
 	@Override
 	public Car getById(int id) {
 		Car car = null;
@@ -116,7 +113,6 @@ public class CarPostgres implements CarDAO {
 		return allCars;
 	}
 
-	// made by amplifire with small edits by sierra
 	@Override
 	public void update(Car dataToUpdate) {
 		try (Connection conn = connUtil.getConnection()) {
@@ -145,7 +141,6 @@ public class CarPostgres implements CarDAO {
 		}
 	}
 
-	// made by synergy w/ edits by sierra
 	@Override
 	public void delete(Car dataToDelete) {
 		try (Connection conn = connUtil.getConnection()) {
@@ -178,7 +173,6 @@ public class CarPostgres implements CarDAO {
 		}
 	}
 
-	// made by alchemy w/ small edits by sierra
 	@Override
 	public Set<Car> getByStatus(String status) {
 		Set<Car> allCars = new HashSet<>();

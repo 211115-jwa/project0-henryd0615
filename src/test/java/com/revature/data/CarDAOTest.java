@@ -12,8 +12,8 @@ import java.util.Set;
 public class CarDAOTest {
 	private CarDAO carDao = new CarPostgres();
 	
-	// made by synergy w/ small edit by sierra
-	@Test // Test 
+	
+	@Test 
 	public void getByIdWhenIdExists() {
 		// setup
 		int idInput = 1;
@@ -23,15 +23,13 @@ public class CarDAOTest {
 		assertEquals(1, idOutput.getId());
 	}
 	
-	// made by amplifire
 	@Test
 	public void getByIdWhenIdDoesNotExist() {
 		int idInput = -1;
 		Car carOutput = carDao.getById(idInput);
 		assertNull(carOutput);
 	}
-	
-	// made by amplifire with edits by sierra
+
 	@Test
 	public void getAll() {
 		Set<Car> givenOutput = carDao.getAll();

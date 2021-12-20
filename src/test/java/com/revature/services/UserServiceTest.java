@@ -22,17 +22,17 @@ import com.revature.beans.Car;
 import com.revature.data.PersonDAO;
 import com.revature.data.CarDAO;
 
-// tell JUnit that we're using Mockito
+
 @ExtendWith(MockitoExtension.class)
 public class UserServiceTest {
-	// tell Mockito which classes/interfaces that we'll be mocking
+
 	@Mock
 	private CarDAO carDao;
 	
 	@Mock
 	private PersonDAO personDao;
 	
-	// tell Mockito to override the regular DAOs with our mock DAOs
+
 	@InjectMocks
 	private UserService userServ = new UserServiceImpl();
 	
@@ -53,20 +53,16 @@ public class UserServiceTest {
 	
 	@Test
 	public void logInSuccessfully() {
-		// input setup
 		String username="BookJean";
 		String password="BookJeanpass";
 		
-		// set up the mocking
 		Person mockPerson = new Person();
 		mockPerson.setUsername(username);
 		mockPerson.setPassword(password);
 		when(personDao.getByUsername(username)).thenReturn(mockPerson);
-		
-		// call the method we're testing
+
 		Person actualPerson = userServ.logIn(username, password);
-		
-		// assert the expected behavior/output
+
 		assertEquals(mockPerson,actualPerson);
 	}
 	
@@ -148,14 +144,11 @@ public class UserServiceTest {
 		mockCar.setId(1);
 		when(carDao.getById(carId)).thenReturn(mockCar);
 		
-		// mock will do nothing when "update" gets called with any pet or person
 		doNothing().when(carDao).update(Mockito.any(Car.class));
 		doNothing().when(personDao).update(Mockito.any(Person.class));
 		
 		Person newPerson = userServ.purchaseCar(carId, person);
 		
-		// make sure that the method returned a person that has their
-		// newly adopted pet there, and that pet has the correct status
 		mockCar.setStatus("Purchsed");
 		assertTrue(newPerson.getCars().contains(mockCar));
 	}
@@ -174,8 +167,6 @@ public class UserServiceTest {
 		
 		assertNull(newPerson);
 		
-		// these Mockito methods will verify that neither of these
-		// update methods got called
 		verify(carDao, times(0)).update(Mockito.any(Car.class));
 		verify(personDao, times(0)).update(Mockito.any(Person.class));
 	}
