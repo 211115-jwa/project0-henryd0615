@@ -31,7 +31,6 @@ public class CarApp {
 			path("/cars", () -> {
 				get(ctx -> {
 					String modelSearch = ctx.queryParam("model");
-					String makeSearch = ctx.queryParam("make");
 		
 					if (modelSearch != null && !"".equals(modelSearch)) {
 						Set<Car> carsFound = userServ.searchAvailableCarsByModel(modelSearch);
@@ -53,7 +52,6 @@ public class CarApp {
 					}
 				});
 				
-				// localhost:8080/cars/purchase/1
 				path("/purchase/{id}", () -> {
 					put(ctx -> {
 						try {
@@ -68,7 +66,6 @@ public class CarApp {
 					});
 				});
 				
-				// localhost:8080/cars/1
 				path("/{id}", () -> {
 					
 					get(ctx -> {
