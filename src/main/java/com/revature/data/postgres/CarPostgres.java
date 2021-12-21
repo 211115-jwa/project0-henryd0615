@@ -22,8 +22,7 @@ public class CarPostgres implements CarDAO {
 		try (Connection conn = connUtil.getConnection()) {
 			conn.setAutoCommit(false);
 			
-			String sql = "insert into car (id,make,model,year,status) "
-					+ "values (default, ?, ?, ?, ?)";
+			String sql = "insert into car (id,make,model,year,status) " + "values (default, ?, ?, ?, ?)";
 			String[] keys = {"id"}; 
 			PreparedStatement pStmt = conn.prepareStatement(sql, keys);
 			
@@ -195,5 +194,61 @@ public class CarPostgres implements CarDAO {
 
 		return allCars;
 	}
+
+	@Override
+	public Set<Car> getByModel(String model) {
+		Set<Car> carSet = new HashSet<Car>();
+		Car car = null;
+
+		try (Connection conn = connUtil.getConnection()) {
+			String sql = "select * from Car where model = ?";
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			pStmt.setString(1, model);
+
+			ResultSet resultSet = pStmt.executeQuery();
+
+			if (resultSet.next()) {
+				car = new Car();
+				car.setId(resultSet.getInt("id"));
+				car.setMake(resultSet.getString("make"));
+				car.setModel(resultSet.getString("model"));
+				car.setYear(resultSet.getInt("year"));
+				car.setStatus(resultSet.getString("status"));
+				
+				carSet.add(car);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return carSet;
+	}
+
+@Override
+public Set<Car> getByMake(String make) {
+	Set<Car> carSet = new HashSet<Car>();
+	Car car = null;
+
+	try (Connection conn = connUtil.getConnection()) {
+		String sql = "select * from Car where make = ?";
+		PreparedStatement pStmt = conn.prepareStatement(sql);
+		pStmt.setString(1, make);
+
+		ResultSet resultSet = pStmt.executeQuery();
+
+		if (resultSet.next()) {
+			car = new Car();
+			car.setId(resultSet.getInt("id"));
+			car.setMake(resultSet.getString("make"));
+			car.setModel(resultSet.getString("model"));
+			car.setYear(resultSet.getInt("year"));
+			car.setStatus(resultSet.getString("status"));
+			
+			carSet.add(car);
+		}
+	} catch (SQLException e) {
+		e.printStackTrace();
+	}
+	return carSet;
+}
 
 }

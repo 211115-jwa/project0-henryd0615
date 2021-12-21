@@ -2,8 +2,6 @@ package com.revature.app;
 
 import io.javalin.Javalin;
 import io.javalin.http.HttpCode;
-
-// this static import is for the path and get/post/put methods
 import static io.javalin.apibuilder.ApiBuilder.*;
 
 import java.util.Set;

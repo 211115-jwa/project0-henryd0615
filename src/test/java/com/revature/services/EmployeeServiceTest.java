@@ -2,8 +2,6 @@ package com.revature.services;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.Test;
@@ -26,6 +24,7 @@ public class EmployeeServiceTest {
 	
 	@Test
 	public void addNewCarSuccessfully() {
+		
 		Car car = new Car();
 		
 		when(carDao.create(car)).thenReturn(10);
@@ -37,6 +36,7 @@ public class EmployeeServiceTest {
 	
 	@Test
 	public void addNewCarSomethingWrong() {
+		
 		Car car = new Car();
 		
 		when(carDao.create(car)).thenReturn(0);
@@ -48,6 +48,7 @@ public class EmployeeServiceTest {
 	
 	@Test
 	public void editCarSuccessfully() {
+		
 		Car editedCar = new Car();
 		editedCar.setId(2);
 		editedCar.setYear(2017);
@@ -62,6 +63,7 @@ public class EmployeeServiceTest {
 	
 	@Test
 	public void editCarSomethingWrong() {
+		
 		Car mockCar = new Car();
 		mockCar.setId(2);
 		
@@ -78,21 +80,8 @@ public class EmployeeServiceTest {
 	}
 	
 	@Test
-	public void editCarDoesNotExist() {
-		when(carDao.getById(2)).thenReturn(null);
-		
-		Car editedCar = new Car();
-		editedCar.setId(2);
-		editedCar.setYear(2017);
-		
-		Car actualCar = empServ.editCar(editedCar);
-		
-		assertNull(actualCar);
-		verify(carDao, times(0)).update(Mockito.any(Car.class));
-	}
-	
-	@Test
 	public void getByIdCarExists() {
+		
 		Car car = new Car();
 		car.setId(2);
 		
@@ -104,9 +93,11 @@ public class EmployeeServiceTest {
 	
 	@Test
 	public void getByIdCarDoesNotExist() {
+		
 		when(carDao.getById(2)).thenReturn(null);
 		
 		Car actualCar = empServ.getCarById(2);
+		
 		assertNull(actualCar);
 	}
 }
